@@ -1,4 +1,5 @@
 from tkinter import * 
+from customtkinter import *
 
 count_click = 0
 
@@ -8,8 +9,12 @@ def click_count():
     label_click.config(text=count_click)
 
 
+def reset():
+    global count_click
+    count_click = 0
+    label_click.config(text=count_click)
 
-root = Tk()
+root = CTk()
 
 root.title("Cookie Clicker")
 root.iconbitmap('img/cookie(1).ico')
@@ -20,6 +25,7 @@ root.resizable(0, 0)
 
 
 cookie = PhotoImage(file='img/cookiebtn.png')
+cook = PhotoImage(file='img/cookieicon.png')
 
 canvas = Canvas(
     root,
@@ -28,18 +34,35 @@ canvas = Canvas(
     highlightthickness=0,
     bg='brown'
 )
-
+reset_btn = CTkButton(
+    text="",
+    width=35,
+    height=35,
+    fg_color='brown',
+    bg_color='brown',
+    borderwidth=0,
+    image=cook,
+    command=reset
+)
 label_click = Label(
     root,
     font=("Arial",20),
     bg='brown',
     text=count_click
 )
-btn_cookie = Button(
-    bg='brown',
+btn_cookie = CTkButton(
+    fg_color='brown',
+    hover_color='brown',
+    text="",
     borderwidth=0,
     image=cookie,
     command=click_count
+)
+canvas.create_window(
+    250,
+    3,
+    anchor=NW,
+    window=reset_btn
 )
 canvas.create_window(
     300,
